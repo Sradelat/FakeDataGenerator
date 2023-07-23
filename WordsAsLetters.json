@@ -206,6 +206,31 @@
             "Documentary",
             "Musical",
             "Mystery"
+        ],
+        "companies": [
+            "Silent Vision",
+            "Final Cost",
+            "Huge Fish",
+            "Minute Sand",
+            "Sure Way",
+            "Course Universe",
+            "Fading Shrimp",
+            "Pulling Sally",
+            "Yellow Dinner",
+            "Runaway Vehicle",
+            "Light Box",
+            "Sound Circle",
+            "Papersoft",
+            "Somehow Here",
+            "Kind Soldier",
+            "Empty Mind",
+            "Solar Scratch"
+        ],
+                "movie_ratings": [
+            "G",
+            "PG",
+            "PG-13",
+            "R"
         ]
     }
 }

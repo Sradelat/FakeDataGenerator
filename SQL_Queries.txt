@@ -1,0 +1,172 @@
+**SQL Queries against the database of fake movies that was created by this program - done in SQLiteStudio3**
+
+- For practice and practical purposes -
+
+*Format table correctly before importing data
+CREATE TABLE fake_movies(
+    "title" TEXT,
+    "company" TEXT,
+    "genre" TEXT,
+    "year" INTEGER,
+    "rating" INTEGER,
+    "length" INTEGER,
+    "critic_score" INTEGER,
+    "number_of_critics" INTEGER,
+    "user_score" INTEGER,
+    "number_of_users" INTEGER,
+    "latitude" REAL,
+    "longitude" REAL,
+    "state_filmed" TEXT);
+
+*Import data to previously created table
+SELECT import('C:\Users\shawn\Desktop\DBs\FakeMovies.csv', 'CSV', 'fake_movies', 'UTF-8', '')
+
+*Show all data
+SELECT * FROM fake_movies
+
+*Top 10 movies by user_score
+SELECT * FROM fake_movies
+ORDER BY user_score DESC
+LIMIT 10
+
+*Find duplicate titles
+SELECT count(title) AS count, title FROM fake_movies
+GROUP BY title
+ORDER BY count DESC
+
+*The only duplicate title in the DB
+SELECT * FROM fake_movies
+WHERE title = "A Soldier Before Wealth"
+
+*Delete the older duplicate movie
+DELETE FROM fake_movies
+WHERE title = "A Soldier Before Wealth" and year < 1998
+
+*Show all filming locations - NOTE: The API pulled some locations that are not in the US or are unspecified
+SELECT DISTINCT state_filmed from fake_movies
+
+*Verify that all outliers are captured
+SELECT DISTINCT state_filmed FROM fake_movies
+WHERE NOT (
+state_filmed = "Sonora" or
+state_filmed = "Tamaulipas" or
+state_filmed = "British Columbia" or
+state_filmed = "Manitoba" or
+state_filmed = "New Brunswick" or
+state_filmed = "Coahuila" or
+state_filmed = "Chihuahua" or
+state_filmed = "Quebec" or
+state_filmed = "Ontario" or
+state_filmed = "{}"
+)
+
+*Copy movies not in US into new table
+INSERT INTO fake_movies_nonUS
+SELECT * FROM fake_movies
+WHERE(
+state_filmed = "Sonora" or
+state_filmed = "Tamaulipas" or
+state_filmed = "British Columbia" or
+state_filmed = "Manitoba" or
+state_filmed = "New Brunswick" or
+state_filmed = "Coahuila" or
+state_filmed = "Chihuahua" or
+state_filmed = "Quebec" or
+state_filmed = "Ontario" or
+state_filmed = "{}"
+)
+
+*Clean from main table
+DELETE FROM fake_movies
+WHERE (
+state_filmed = "Sonora" or
+state_filmed = "Tamaulipas" or
+state_filmed = "British Columbia" or
+state_filmed = "Manitoba" or
+state_filmed = "New Brunswick" or
+state_filmed = "Coahuila" or
+state_filmed = "Chihuahua" or
+state_filmed = "Quebec" or
+state_filmed = "Ontario" or
+state_filmed = "{}"
+)
+
+*Find any NULL values - NOTE: There are none. Maybe the program should randomly assign NULL values
+SELECT * FROM fake_movies
+WHERE (
+title IS NULL or
+company IS NULL or
+genre IS NULL or
+year IS NULL or
+rating IS NULL or
+length IS NULL or
+critic_score IS NULL or
+number_of_critics IS NULL or
+user_score IS NULL or
+number_of_users IS NULL or
+latitude IS NULL or
+longitude IS NULL or
+state_filmed IS NULL
+)
+
+*Rank high scoring genres
+SELECT count(genre) as count, genre FROM fake_movies
+WHERE user_score >= 70 AND critic_score >= 70
+GROUP BY genre
+ORDER BY count DESC
+
+*Find entries with the word "Thought" in the title
+SELECT * FROM fake_movies
+WHERE title LIKE "%Thought%"
+
+*Find entries between the years 2000 and 2020
+SELECT * FROM fake_movies
+WHERE year BETWEEN 2000 and 2020
+ORDER BY year ASC
+
+*Add scores for a score sum column
+SELECT *, critic_score + user_score as score_sum from fake_movies
+ORDER BY score_sum DESC
+
+*Find entries where company in list
+SELECT * FROM fake_movies
+WHERE company IN ("Huge Fish", "Final Cost", "Course Universe")
+ORDER BY company ASC
+
+*An update for our already fake data
+UPDATE fake_movies
+SET company = "Sound Square"
+WHERE company = "Sound Circle"
+
+*Creating more fake data for JOINs
+CREATE TABLE companies(
+    "company" TEXT,
+    "director" TEXT)
+
+*More fake data
+UPDATE companies SET director = "Arnold Connor" WHERE company = "Light Box";
+UPDATE companies SET director = "Sarah Schwarz" WHERE company = "Course Universe";
+UPDATE companies SET director = "Edward Patrick" WHERE company = "Final Cost";
+UPDATE companies SET director = "Robert Furlong" WHERE company = "Sound Square";
+UPDATE companies SET director = "Earl Morton" WHERE company = "Silent Vision";
+UPDATE companies SET director = "Joe Boen" WHERE company = "Minute Sand";
+UPDATE companies SET director = "Epatha Guerra" WHERE company = "Huge Fish";
+UPDATE companies SET director = "Castulo Merkerson" WHERE company = "Sure Way";
+UPDATE companies SET director = "Danny Goldstein" WHERE company = "Solar Scratch";
+UPDATE companies SET director = "Jenette Cooksey" WHERE company = "Kind Soldier";
+UPDATE companies SET director = "Xander Gearren" WHERE company = "Yellow Dinner";
+UPDATE companies SET director = "Leslie Berkeley" WHERE company = "Papersoft";
+UPDATE companies SET director = "Ken Winley" WHERE company = "Somehow Here";
+UPDATE companies SET director = "Robert Gibbel" WHERE company = "Empty Mind";
+UPDATE companies SET director = "Pete Wilder" WHERE company = "Runaway Vehicle";
+UPDATE companies SET director = "Shane Schrum" WHERE company = "Fading Shrimp";
+UPDATE companies SET director = "Michael Lounsbery" WHERE company = "Pulling Sally";
+
+*Inner join to get director into the original table
+SELECT title, company, director FROM fake_movies
+INNER JOIN companies ON fake_movies.company = companies.company
+
+*Maybe run some MIN/MAX/AVG type scenarios - and create a new table with the join
+
+
+
