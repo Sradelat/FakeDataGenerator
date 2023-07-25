@@ -166,6 +166,29 @@ UPDATE companies SET director = "Michael Lounsbery" WHERE company = "Pulling Sal
 SELECT title, company, director FROM fake_movies
 INNER JOIN companies ON fake_movies.company = companies.company
 
+*Creating a new table for new data
+CREATE TABLE director_score(
+    "director" TEXT,
+    "company" TEXT,
+    "score_sum" INTEGER)
+
+*Drop column for practice
+ALTER TABLE director_score DROP COLUMN company
+
+*Insert new data into table with a join
+INSERT INTO director_score
+SELECT director, SUM(critic_score + user_score) as score_sum FROM fake_movies
+INNER JOIN companies ON fake_movies.company = companies.company
+GROUP BY director
+ORDER BY score_sum DESC
+
+*Find minimum score
+SELECT director, MIN(score_sum) FROM director_score
+
+*Find average score rounded
+SELECT ROUND(AVG(score_sum), 2) as average_score FROM director_score
+
+
 *Maybe run some MIN/MAX/AVG type scenarios - and create a new table with the join
 
 
