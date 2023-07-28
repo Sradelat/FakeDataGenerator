@@ -59,9 +59,9 @@ with open("WordsAsLetters.json") as j_file:
         print(resp.content)
         json = resp.json()
 
-        lat = json["major"]["inlatt"]
-        long = json["major"]["inlongt"]
-        state = json["major"]["prov"]
+        lat = json["nearest"]["inlatt"]
+        long = json["nearest"]["inlongt"]
+        state = json["nearest"]["prov"]
         # pprint(json)
 
         categories = [
