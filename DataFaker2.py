@@ -11,39 +11,6 @@ from config import Settings
 # Maybe write some tests for these functions
 
 
-def add_word(word, container):
-    """Adds a word into container specified. The word is written into a JSON file used for permanent storage. If the
-    word is already in the container, the user will be notified."""
-    with open("WordsAsLetters.json", "r") as jf:  # read only
-        data = json.loads(jf.read())  # fetches text from JSON file and applies it to a variable
-    jf.close()  # close document from read only
-
-    if word not in data["words"][container]:  # edit datapoint
-        data["words"][container].append(word)
-        print(f"The word '{word}' was added to {container}")
-    else:
-        return print(f"The word '{word}' is already in {container}.")
-
-    with open("WordsAsLetters.json", "w") as jf:  # write
-        return json.dump(data, jf, indent=4)  # dumps entire file back in with edited datapoint
-
-
-def delete_word(word, container):
-    """Deletes a word from container specified. The word is deleted from a JSON file used for permanent storage. If
-    the word does not exist in the container, the user will be notified."""
-    with open("WordsAsLetters.json", "r") as jf:
-        data = json.loads(jf.read())
-    jf.close()
-    if word in data["words"][container]:
-        data["words"][container].remove(word)
-        print(f"The word '{word}' was deleted from {container}")
-    else:
-        return print(f"The word '{word}' is not in {container}.")
-
-    with open("WordsAsLetters.json", "w") as jf:
-        return json.dump(data, jf, indent=4)
-
-
 def iseven(num):
     """Checks if the number passed is even or not."""
     if num % 2 == 0:
@@ -119,6 +86,30 @@ def low_middle_weight(lst):
     return weight
 
 
+def lucky_metrics():
+    u_score = random.choices(range(Settings.u_score_max + 1), weights=lucky_user_score_weight)[0]
+    users = random.choices(range(Settings.no_users + 1), weights=lucky_no_of_users_weight)[0]
+    c_score = random.choices(range(Settings.c_score_max + 1), weights=lucky_critic_score_weight)[0]
+    critics = random.choices(range(Settings.no_critics + 1), weights=lucky_no_of_critics_weight)[0]
+    return u_score, users, c_score, critics
+
+
+def unlucky_metrics():
+    u_score = random.choices(range(Settings.u_score_max + 1), weights=unlucky_user_score_weight)[0]
+    users = random.choices(range(Settings.no_users + 1), weights=unlucky_no_of_users_weight)[0]
+    c_score = random.choices(range(Settings.c_score_max + 1), weights=unlucky_critic_score_weight)[0]
+    critics = random.choices(range(Settings.no_critics + 1), weights=unlucky_no_of_critics_weight)[0]
+    return u_score, users, c_score, critics
+
+
+def normal_metrics():
+    u_score = random.choices(range(Settings.u_score_max + 1), weights=user_score_weight)[0]
+    users = random.choices(range(Settings.no_users + 1), weights=no_of_users_weight)[0]
+    c_score = random.choices(range(Settings.c_score_max + 1), weights=critic_score_weight)[0]
+    critics = random.choices(range(Settings.no_critics + 1), weights=no_of_critics_weight)[0]
+    return u_score, users, c_score, critics
+
+
 headers = [
     {
         "title": "",
@@ -141,6 +132,7 @@ headers = [
 with open("Random.csv", "w", newline="") as f:
     writer = csv.DictWriter(f, fieldnames=headers[0].keys())
     writer.writeheader()
+    f.close()
 
 
 with open("WordsAsLetters.json") as j_file:
@@ -164,6 +156,16 @@ with open("WordsAsLetters.json") as j_file:
     lucky_company = company_lottery[0]
     unlucky_company = company_lottery[1]
 
+    lucky_user_score_weight = high_middle_weight(list(range(Settings.u_score_max + 1)))
+    lucky_no_of_users_weight = high_middle_weight(list(range(Settings.no_users + 1)))
+    lucky_critic_score_weight = high_middle_weight(list(range(Settings.c_score_max + 1)))
+    lucky_no_of_critics_weight = high_middle_weight(list(range(Settings.no_critics + 1)))
+
+    unlucky_user_score_weight = low_middle_weight(list(range(Settings.u_score_max + 1)))
+    unlucky_no_of_users_weight = low_middle_weight(list(range(Settings.no_users + 1)))
+    unlucky_critic_score_weight = low_middle_weight(list(range(Settings.c_score_max + 1)))
+    unlucky_no_of_critics_weight = low_middle_weight(list(range(Settings.no_critics + 1)))
+
     for i in range(Settings.number_of_data_points + 1):  # change range for amount of data entries
         title = f"{random.choice(words_contents['words']['object_nouns'])} " \
                 f"{random.choice(words_contents['words']['prepositions'])} " \
@@ -183,40 +185,42 @@ with open("WordsAsLetters.json") as j_file:
         movie_length = random.choices(range(Settings.len_min, Settings.len_max + 1), weights=movie_length_weight)[0]
         company = random.choices(words_contents['words']['companies'], weights=company_weight)[0]
 
-        # if genre == lucky_genre
-        user_score = random.choices(range(Settings.u_score_max + 1), weights=user_score_weight)[0]
-        no_of_users = random.choices(range(Settings.no_users + 1), weights=no_of_users_weight)[0]
-        critic_score = random.choices(range(Settings.c_score_max + 1), weights=critic_score_weight)[0]
-        no_of_critics = random.choices(range(Settings.no_critics + 1), weights=no_of_critics_weight)[0]
+        # ASSIGN LUCKY METRICS
+        if (genre == lucky_genre and company == lucky_company) or \
+                (genre == lucky_genre and company != unlucky_company) or \
+                (company == lucky_company and genre != unlucky_genre):
+            user_score, no_of_users, critic_score, no_of_critics = lucky_metrics()
+
+        # ASSIGN UNLUCKY METRICS
+        elif (genre == unlucky_genre and company == unlucky_company) or \
+                (genre == unlucky_genre and company != lucky_company) or \
+                (company == unlucky_company and genre != lucky_genre):
+            user_score, no_of_users, critic_score, no_of_critics = unlucky_metrics()
+
+        # ASSIGN NORMAL METRICS
+        else:
+            user_score, no_of_users, critic_score, no_of_critics = normal_metrics()
 
         # Free API gives random lat/long in US - actually ended up with data points outside the US
         # but that's okay because raw data is never perfect
         resp = requests.get("https://api.3geonames.org/?randomland=US&json=1")
-        print(resp)
-        print(resp.content)
+        print(resp, resp.content)
         json = resp.json()  # getting json decoding errors - not sure why yet
 
         lat = json["major"]["inlatt"]
         long = json["major"]["inlongt"]
         state = json["major"]["prov"]
 
-        # DEBUG PRINT - try to truncate this by creating another column with .left() or whatever it is
+        # DEBUG PRINT BEAUTIFIED
         print(
-            f"Title: {title.title()}\n"
-            f"Company: {company}\n"
-            f"Genre: {genre}\n"
-            f"Year: {year}\n"
-            f"Rating: {rating}\n"
-            f"Length: {movie_length}\n"
-            f"Critic Score: {critic_score}\n"
-            f"Critic Count: {no_of_critics}\n"
-            f"User Score: {user_score}\n"
-            f"User Count: {no_of_users}\n"
-            f"Latitude: {lat}\n"
-            f"Longitude: {long}\n"
-            f"State: {state}"
+            f"{'Title: ' + title.title():<40} Genre: {genre}\n"
+            f"{'Year: ' + str(year):<40} Rating: {rating}\n"
+            f"{'Rating: ' + rating:<40} Length: {movie_length}\n"
+            f"{'Critic Score: ' + str(critic_score):<40} Critic Count: {no_of_critics}\n"
+            f"{'User Score: ' + str(user_score):<40} User Count: {no_of_users}\n"
+            f"{'Latitude: ' + str(lat):<40} {'Longitude: ' + str(long):<40} State: {state}"
               )
-
+        quit()
         categories = [
             {
                 "title": title.title(),
@@ -237,7 +241,10 @@ with open("WordsAsLetters.json") as j_file:
         with open("Random.csv", "a", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=categories[0].keys())
             writer.writerow(categories[0])
+            f.close()
         t = time.localtime()
         current_time = time.strftime("%H:%M:%S", t)
         time.sleep(5)
         print(f"{current_time}\n")
+
+

@@ -1,8 +1,9 @@
 import DataFaker2
 import json
+import WordsAsLettersFunctions
 
 
-# WordsAsLetters_Functions.add_word("control", "concept_nouns")
+# WordsAsLettersFunctions.add_word("fascism", "concept_nouns")
 
 # WordsAsLetters_Functions.delete_word("unknown", "concept_nouns")
 
