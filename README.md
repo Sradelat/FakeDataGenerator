@@ -1,6 +1,6 @@
 
-## Weight System
-### Text
+### Weight System
+#### Text
 ![DefinedLucky](https://github.com/Sradelat/FakeDataGenerator/assets/98350632/68276bb6-d8b7-45d4-bf27-1bd90e23f36a)
 ![Words](https://github.com/Sradelat/FakeDataGenerator/assets/98350632/8e7a4812-85d5-48d3-8d97-e212bd7cc05b)
 ![FrontWeight](https://github.com/Sradelat/FakeDataGenerator/assets/98350632/844fc64b-541d-474d-9dfd-f376a610782e)
