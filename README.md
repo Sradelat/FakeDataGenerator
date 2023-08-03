@@ -15,13 +15,13 @@ Above is a list of all the genres used and a chart to prove to myself that it is
 ![BackWeight](https://github.com/Sradelat/FakeDataGenerator/assets/98350632/af4e4fa3-435a-44c4-9124-49c392053113)
 <br>
 <br>
-This chart shows what I called "back weighting." Its the same as front weighting but in reverse. Elements near the end of the list are more likely to be chosen. The chart proves to me, once again, that it worked.
+The above chart shows what I called "back weighting." Its the same as front weighting but in reverse. Elements near the end of the list are more likely to be chosen. The chart proves to me, once again, that it worked.
 <br>
 <br>
 ![MiddleWeight](https://github.com/Sradelat/FakeDataGenerator/assets/98350632/ddd54cba-75eb-49fe-8e1a-f6bd3b8a23c0)
 <br>
 <br>
-This is a histogram of the number of occurances of all 2000 critic scores ranged from 0-100. The weight skews the data so that it is more likely choosing a number around 50, in this case, on average. This chart once more proves my "middle weighting" functions correctly.
+This is a histogram of the number of occurances of all 2000 critic scores ranged from 0-100. The weight skews the data so that it is more likely choosing a number around 50, in this case, on average. This chart above once more proves my "middle weighting" functions correctly.
 ## Luck System
 Once I added the above weight system, I knew that my charts would still be pretty flat if I took an average of all user scores, user amounts, ect. I succeeded in varying my data, but only in one dimension. I wanted to create a system that would favor a certain metric and perhaps disfavor another metric. The result of that is the luck system.
 <br>
