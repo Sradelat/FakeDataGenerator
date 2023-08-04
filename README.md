@@ -147,6 +147,7 @@ Again, but with genres. "Musical" is lucky and "Drama" is unlucky:
 ![LuckyGenre](https://github.com/Sradelat/FakeDataGenerator/assets/98350632/866195a3-5e5b-484f-a40d-9ca458b5e8de)
 <br>
 <br>
-Looks like it checks out! I learned a lot of things and encountered many problems that I did not expect during this 
-project. Thank you for taking the time to read this!
+Looks like it checks out! This system will make exploring my data more exciting than last time. In conclusion,I learned 
+a lot of things and encountered many problems that I did not expect during this project. It is those unexpected problems
+that keeps me coming back to programming. Thank you for taking the time to read this!
 
