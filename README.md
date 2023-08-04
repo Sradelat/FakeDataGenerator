@@ -21,12 +21,12 @@ The above chart shows what I called "back weighting." Its the same as front weig
 ![MiddleWeight](https://github.com/Sradelat/FakeDataGenerator/assets/98350632/ddd54cba-75eb-49fe-8e1a-f6bd3b8a23c0)
 <br>
 <br>
-This is a histogram of the number of occurances of all 2000 critic scores ranged from 0-100. The weight skews the data so that it is more likely choosing a number around 50, in this case, on average. This chart above once more proves my "middle weighting" functions correctly.
+This is a histogram of the number of occurances of all 2000 critic scores ranged from 0-100. The weight skews the program so that it is more likely choosing a number around 50 on average. This chart above once more proves my "middle weighting" functions correctly.
 ## Luck System
 Once I added the above weight system, I knew that my charts would still be pretty flat if I took an average of all user scores, user amounts, ect. I succeeded in varying my data, but only in one dimension. I wanted to create a system that would favor a certain metric and perhaps disfavor another metric. The result of that is the luck system.
 <br>
 <br>
-I wrote some code to choose two completely random companies and define each of them as either lucky or unlucky. I did the same with the genres category. Then, I created a "high middle" and a "low middle" weight. A "high middle" weight skews the data into the choosing a number around 75 (out of 100) on average. The "low middle" weight does the opposite by skewing it to a number around 25 (out of 100) on average.
+I wrote some code to choose two completely random companies and define each of them as either lucky or unlucky. I did the same with the genres category. Then, I created a "high middle" and a "low middle" weight. A "high middle" weight skews the program into choosing a number closer to 75 (out of 100) on average. The "low middle" weight does the opposite by skewing it to a number around 25 (out of 100) on average.
 <br>
 <br>
 If a company or genre ended up being lucky, it would receive scores and number of reviews using the "high middle" weight. If it ended up being unlucky, it would have "low middle" weight. For instance, I have my program pick as follows:
