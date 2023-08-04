@@ -1,4 +1,4 @@
-**SQL Queries against the database of fake movies that was created by this program - done in SQLiteStudio3**
+**SQL Queries against the database of fake movies that was created by this program - executed in SQLiteStudio3**
 
 - For practice and practical purposes -
 
@@ -187,9 +187,6 @@ SELECT director, MIN(score_sum) FROM director_score
 
 *Find average score rounded
 SELECT ROUND(AVG(score_sum), 2) as average_score FROM director_score
-
-
-*Maybe run some MIN/MAX/AVG type scenarios - and create a new table with the join
 
 
 

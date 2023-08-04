@@ -60,7 +60,8 @@
             "alien",
             "soldier",
             "thief",
-            "eye"
+            "eye",
+            "doctor"
         ],
         "prepositions": [
             "aboard",
@@ -136,7 +137,6 @@
             "life",
             "time",
             "space",
-            "science",
             "hope",
             "hate",
             "love",
@@ -192,7 +192,9 @@
             "dishonesty",
             "mercy",
             "loyalty",
-            "control"
+            "control",
+            "tactics",
+            "fascism"
         ],
         "genres": [
             "Action",
@@ -226,7 +228,7 @@
             "Empty Mind",
             "Solar Scratch"
         ],
-                "movie_ratings": [
+        "movie_ratings": [
             "G",
             "PG",
             "PG-13",

@@ -8,10 +8,10 @@ def add_word(word, container):
         data = json.loads(jf.read())  # fetches text from JSON file and applies it to a variable
     jf.close()  # close document from read only
 
-    if word not in data["words"][container]:  # edit datapoint
+    if word not in data["words"][container]:  # add word if not in list
         data["words"][container].append(word)
         print(f"The word '{word}' was added to {container}")
-    else:
+    else:  # if word in list
         return print(f"The word '{word}' is already in {container}.")
 
     with open("WordsAsLetters.json", "w") as jf:  # write
@@ -23,12 +23,13 @@ def delete_word(word, container):
     the word does not exist in the container, the user will be notified."""
     with open("WordsAsLetters.json", "r") as jf:
         data = json.loads(jf.read())
-    jf.close()
-    if word in data["words"][container]:
+    jf.close()  # close document
+
+    if word in data["words"][container]:  # delete word if it exists
         data["words"][container].remove(word)
         print(f"The word '{word}' was deleted from {container}")
-    else:
+    else:  # else do nothing
         return print(f"The word '{word}' is not in {container}.")
 
-    with open("WordsAsLetters.json", "w") as jf:
-        return json.dump(data, jf, indent=4)
+    with open("WordsAsLetters.json", "w") as jf:  # write
+        return json.dump(data, jf, indent=4)  # dump entire file back in with edited datapoint

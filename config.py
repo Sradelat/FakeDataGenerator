@@ -1,6 +1,6 @@
 class Settings:
-    """This class contains a few settings that can be changed prior to running the program to change the shape
-    of the data that is output."""
+    """This class contains a few settings that can be changed prior to running the program to change the shape and
+    values ranges of the data that is output."""
     number_of_data_points = 2000  # number of rows that will be generated and written to the CSV
 
     u_score_max = 100  # maximum user score that will be generated

@@ -1,10 +1,13 @@
-import DataFaker2
+import DataFaker
 import json
 import WordsAsLettersFunctions
 
+DataFaker.show_lucky()
 
+# # ADD WORD
 # WordsAsLettersFunctions.add_word("fascism", "concept_nouns")
 
+# # DELETE WORD
 # WordsAsLetters_Functions.delete_word("unknown", "concept_nouns")
 
 
