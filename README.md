@@ -11,7 +11,7 @@ project. However, I was still determined to experiment with SQL and Tableau and 
 create my own data. And the fastest way to do that, would be to fabricate it. Below I will show the steps I took to 
 successfully create the data that I needed.
 
-### You wrote too much text below. Give me a summary, please!
+### I don't have time to read all of this. Give me a summary, please!
 I created a program that generates random fake movie data and writes it to Random.csv. My main focus was locational 
 data, for that reason, I utilized a free API to generate randomized latitude and longitude within the US. The first result 
 is stored in FakeMovies.csv. I imported that into SQLiteStudio3 for some SQL Queries, which can be found in 
